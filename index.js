@@ -3,6 +3,8 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 
 const dataRoutes = require('./routes/dataRoute');
+const socialRoute = require('./routes/social');
+const callbackRoute = require('./routes/callback');
 const app = express();
 const PORT = process.env.PORT||3001;
 
@@ -21,8 +23,11 @@ app.use((req,res,next)=>{
 
 })
 
-app.use('/data',dataRoutes);
+app.use('/api/data',dataRoutes);
 
+app.use('/api/social-authorize', socialRoute);
+
+app.use('users/auth/instagram/callback', callbackRoute);
 
 app.listen(PORT,()=>{
     console.log(`server is hosted at ${PORT}`);
